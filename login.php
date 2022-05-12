@@ -15,10 +15,12 @@ if(isset($_POST['loginButton'])) {  //ログインボタンからのアクセス
     $selectResult = executeQuery($selectSql);
 
     if($selectResult->num_rows == 0) {  //データが取得できなかった場合
-        //エラーメッセージを変数に用意
-        $errMsg = '入力されたユーザー名とパスワードが間違っています。';
         //検索結果セットの開放
         mysqli_free_result($selectResult);
+
+        //エラー番号12の値とともにエラーページへ遷移
+        header('Location: ./error.php?errNum=12');
+        exit();
     }else { //データが取得できた場合
         //検索結果セットのレコードを連想配列で取得
         $userInfo = mysqli_fetch_assoc($selectResult);
