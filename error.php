@@ -1,0 +1,58 @@
+<?php
+//念のためint型に変換しておく
+$errNum = (int)$_GET['errNum'];
+
+//エラー判定
+switch($errNum) {
+    case 1:
+        $errMsg = "ISBNが未入力の為、書籍登録処理は行えませんでした。";
+        break;
+    case 2:
+        $errMsg = "入力ISBNは既に登録済みの為、書籍登録処理は行えませんでした。";
+        break;
+    case 3:
+        $errMsg = "タイトルが未入力の為、書籍登録処理は行えませんでした。";
+        break;
+    case 4:
+        $errMsg = "価格が未入力の為、書籍登録処理は行えませんでした。";
+        break;
+    case 5:
+        $errMsg = "価格の値が不正の為、書籍登録処理は行えませんでした。";
+        break;
+    case 6:
+        $errMsg = "詳細対象の書籍が存在しない為、詳細情報処理は行えません。";
+        break;
+    case 7:
+        $errMsg = "タイトルが未入力の為、書籍更新処理は行えませんでした。";
+        break;
+    case 8:
+        $errMsg = "価格が未入力の為、書籍更新処理は行えませんでした。";
+        break;
+    case 9:
+        $errMsg = "価格の値が不正の為、書籍更新処理は行えませんでした。";
+        break;
+    case 10:
+        $errMsg = "更新対象の書籍は存在しない為、更新処理は行えませんでした。";
+        break;
+    case 11:
+        $errMsg = "削除対象の書籍は存在しない為、削除処理は行えませんでした。";
+        break;
+}
+?>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Error!</title>
+	</head>
+    <body>
+	<center>
+	    <h2 align="center">書籍販売システムWeb版 Ver.1.0</h2>
+    	<hr style="border: 2px solid blue;">
+    	<br><br>
+    	<h2>●●エラー●●</h2>
+		<p><?=$errMsg?></p>
+		<br><br>
+		<a href="./list.php">[一覧表示に戻る]</a>
+	</center>
+    </body>
+</html>
