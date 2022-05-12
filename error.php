@@ -46,7 +46,7 @@ switch($errNum) {
 	</head>
     <body>
 	<center>
-	    <h2 align="center">書籍販売システムWeb版 Ver.1.0</h2>
+	    <h2 align="center">書籍販売システムWeb版 Ver.2.0</h2>
     	<hr style="border: 2px solid blue;">
     	<br><br>
     	<h2>●●エラー●●</h2>

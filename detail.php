@@ -29,7 +29,7 @@ mysqli_free_result($selectResult);
 	</head>
     <body>
 	<header>
-    	<h2 align="center">書籍販売システムWeb版 Ver.1.0</h2>
+    	<h2 align="center">書籍販売システムWeb版 Ver.2.0</h2>
     	<hr style="border: 2px solid blue;">
     	<div class="float-left" style="position: absolute; top: 83px; left: 20px;">
     		<a href="./menu.php" style="margin-right: 20px;">[メニュー]</a>
