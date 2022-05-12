@@ -5,7 +5,7 @@ session_start();
 //セッションに登録されているユーザー情報を取得
 $userInfo = $_SESSION['userInfo'];
 
-if(!isset($userinfo)) { //セッションに登録されているユーザー情報が無い場合実行
+if(!isset($userInfo)) { //セッションに登録されているユーザー情報が無い場合実行
     //ログイン画面に遷移
     header('Location: ./login.php');
     exit();
@@ -30,7 +30,7 @@ if(!isset($userinfo)) { //セッションに登録されているユーザー情
     	<h2 align="center">書籍販売システムWeb版 Ver.2.0</h2>
     	<hr style="border: 2px solid blue;">
     	<h3 align="center">MENU</h3>
-    	<div class="loginInfo" style="position: absolute; top: 83px; right: 150px;">
+    	<div class="loginInfo" style="position: absolute; top: 55px; right: 60px;">
     		<p>名前：<?=$userInfo['user']?></p>
     		<p>権限：<?=$authority?></p>
     	</div>

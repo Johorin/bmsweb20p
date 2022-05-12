@@ -6,7 +6,6 @@ function executeQuery($sql) {
     $user = "root";
     $pass = "root123";
     $db = "mybookdb";
-    $table = "bookinfo";
 
     //DB接続
     $link = mysqli_connect($url,$user,$pass) or die("MySQLサーバへの接続に失敗しました。");

@@ -5,7 +5,7 @@ session_start();
 //セッションに登録されているユーザー情報を取得
 $userInfo = $_SESSION['userInfo'];
 
-if(!isset($userinfo)) { //セッションに登録されているユーザー情報が無い場合実行
+if(!isset($userInfo)) { //セッションに登録されているユーザー情報が無い場合実行
     //ログイン画面に遷移
     header('Location: ./login.php');
     exit();
@@ -74,7 +74,7 @@ if($selectResult) { //書籍情報が取得できなかった場合
     		<a href="./list.php">[書籍一覧]</a>
     	</div>
     	<h3 align="center">カート追加</h3>
-    	<div class="loginInfo" style="position: absolute; top: 83px; right: 150px;">
+    	<div class="loginInfo" style="position: absolute; top: 55px; right: 60px;">
     		<p>名前：<?=$userInfo['user']?></p>
     		<p>権限：<?=$authority?></p>
     	</div>
@@ -86,18 +86,22 @@ if($selectResult) { //書籍情報が取得できなかった場合
     	<br>
     	<table>
     		<tr>
-    			<td>ISBN</td>
+    			<td style="background-color: lightblue;">ISBN</td>
     			<td><?=$addIsbn?></td>
     		</tr>
     		<tr>
-    			<td>TITLE</td>
+    			<td style="background-color: lightblue;">TITLE</td>
     			<td><?=$addTitle?></td>
     		</tr>
     		<tr>
-    			<td>価格</td>
+    			<td style="background-color: lightblue;">価格</td>
     			<td><?=$addPrice?></td>
     		</tr>
     	</table>
+    	<br>
+    	<form action="./showCart.php" method="post">
+    		<input type="submit" name="confirmCart" value="カート確認">
+    	</form>
     </main>
     </body>
 </html>

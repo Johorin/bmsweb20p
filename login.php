@@ -11,10 +11,10 @@ if(isset($_POST['loginButton'])) {  //ログインボタンからのアクセス
     $pass = $_POST['pass'];
 
     //userテーブルに送信されたユーザー情報が存在するか判定
-    $selectSql = "select * from userinfo where user={$user} and password={$pass}";
+    $selectSql = "select * from userinfo where user='{$user}' and password='{$pass}'";
     $selectResult = executeQuery($selectSql);
 
-    if($selectResult->num_rows == 0) {  //データが取得できなかった場合
+    if(!$selectResult) {  //データが取得できなかった場合
         //検索結果セットの開放
         mysqli_free_result($selectResult);
 
@@ -35,7 +35,7 @@ if(isset($_POST['loginButton'])) {  //ログインボタンからのアクセス
         setcookie('pass', $pass, (time() + 30 * 86400));
 
         //メニュー画面に遷移
-        header('Location: ./menu.php');
+        header("Location: ./menu.php");
         exit;
     }
 } else {    //初回アクセスの場合の処理
