@@ -2,6 +2,13 @@
 //セッションの利用を開始
 session_start();
 
+//セッション情報が切れていないかチェック
+if(!isset($_SESSION['userInfo'])) {
+    //切れてたらエラー番号15とともにエラーページへ遷移
+    header('Location: ./error.php?errNum=15');
+    exit();
+}
+
 //セッションに登録されているユーザー情報を取得
 $userInfo = $_SESSION['userInfo'];
 
@@ -30,7 +37,7 @@ if(isset($_GET['deleteIsbn'])) {
 $total = 0;
 if(isset($_SESSION['cartInfo'])) {
     foreach($_SESSION['cartInfo'] as $bookData) {
-        $total += (int)$bookData['price'];
+        $total += $bookData['price'];
     }
 }
 ?>

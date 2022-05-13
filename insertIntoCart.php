@@ -31,13 +31,13 @@ if(!isset($_SESSION['userInfo'])) {
 }
 
 //遷移元からのISBN番号（GETパラメータ）を取得
-$isbn = $_GET['isbn'];
+$isbn = $_GET['insertIsbn'];
 
 //取得したISBNの書籍情報を検索するクエリ文を設定&発行
 $selectSql = "select * from bookinfo where isbn={$isbn}";
 $selectResult = executeQuery($selectSql);
 
-if($selectResult) { //書籍情報が取得できなかった場合
+if(!$selectResult) { //書籍情報が取得できなかった場合
     //メモリ開放
     mysqli_free_result($selectResult);
 
@@ -55,9 +55,9 @@ if($selectResult) { //書籍情報が取得できなかった場合
     $_SESSION['cartInfo'][] = $addBookInfo;
 
     //カートに追加した書籍情報をそれぞれ変数に格納
-    $addIsbn = $_SESSION['cartInfo']['isbn'];
-    $addTitle = $_SESSION['cartInfo']['title'];
-    $addPrice = $_SESSION['cartInfo']['price'];
+    $addIsbn = $addBookInfo['isbn'];
+    $addTitle = $addBookInfo['title'];
+    $addPrice = $addBookInfo['price'];
 }
 ?>
 <html>
@@ -81,27 +81,29 @@ if($selectResult) { //書籍情報が取得できなかった場合
     	<hr style="border: 1px solid black;">
     </header>
     <main>
-    	<br><br>
-    	<h4>下記の書籍をカートに追加しました。</h4>
-    	<br>
-    	<table>
-    		<tr>
-    			<td style="background-color: lightblue;">ISBN</td>
-    			<td><?=$addIsbn?></td>
-    		</tr>
-    		<tr>
-    			<td style="background-color: lightblue;">TITLE</td>
-    			<td><?=$addTitle?></td>
-    		</tr>
-    		<tr>
-    			<td style="background-color: lightblue;">価格</td>
-    			<td><?=$addPrice?></td>
-    		</tr>
-    	</table>
-    	<br>
-    	<form action="./showCart.php" method="post">
-    		<input type="submit" name="confirmCart" value="カート確認">
-    	</form>
+        <center>
+        	<br><br>
+        	<h4>下記の書籍をカートに追加しました。</h4>
+        	<br>
+        	<table>
+        		<tr>
+        			<td style="background-color: lightblue;">ISBN</td>
+        			<td><?=$addIsbn?></td>
+        		</tr>
+        		<tr>
+        			<td style="background-color: lightblue;">TITLE</td>
+        			<td><?=$addTitle?></td>
+        		</tr>
+        		<tr>
+        			<td style="background-color: lightblue;">価格</td>
+        			<td><?=$addPrice?></td>
+        		</tr>
+        	</table>
+        	<br>
+        	<form action="./showCart.php" method="post">
+        		<input type="submit" name="confirmCart" value="カート確認">
+        	</form>
+        </center>
     </main>
     </body>
 </html>

@@ -1,4 +1,25 @@
 <?php
+//セッションの利用を開始
+session_start();
+
+//セッションに登録されているユーザー情報を取得
+$userInfo = $_SESSION['userInfo'];
+
+if(!isset($userInfo)) { //セッションに登録されているユーザー情報が無い場合実行
+    //ログイン画面に遷移
+    header('Location: ./login.php');
+    exit();
+} else {
+    //ユーザー情報
+    switch ((int)$userInfo['authority']) {
+        case '1':
+            $authority = '一般ユーザ';
+            break;
+        case '2':
+            $authority  = '管理者';
+    }
+}
+
 require_once 'dbprocess.php';
 
 $selectSql = "SELECT * FROM bookinfo ORDER BY isbn ASC";
@@ -19,6 +40,10 @@ $selectResult = executeQuery($selectSql);
     		<a href="./insert.php">[書籍登録]</a>
     	</div>
     	<h3 align="center">書籍一覧</h3>
+    	<div class="loginInfo" style="position: absolute; top: 55px; right: 60px;">
+    		<p>名前：<?=$userInfo['user']?></p>
+    		<p>権限：<?=$authority?></p>
+    	</div>
     	<hr style="border: 1px solid black;">
     </header>
     <main>
@@ -42,7 +67,7 @@ $selectResult = executeQuery($selectSql);
     			<th style="width: 25vw; background-color: lightblue;">ISBN</th>
     			<th style="width: 25vw; background-color: lightblue;">TITLE</th>
     			<th style="width: 25vw; background-color: lightblue;">価格</th>
-    			<th style="width: 25vw; background-color: lightblue;">変更/削除</th>
+    			<th style="width: 25vw; background-color: lightblue;">変更/削除/カートに入れる</th>
     		</tr>
     		<?php
     		while($record = mysqli_fetch_array($selectResult)) {?>
@@ -52,7 +77,8 @@ $selectResult = executeQuery($selectSql);
     			<td><?=$record['price']?>円</td>
     			<td>
     				<a href="./update.php?updateIsbn=<?=$record['isbn']?>" style="margin-right: 20px">変更</a>
-    				<a href="./delete.php?deleteIsbn=<?=$record['isbn']?>">削除</a>
+    				<a href="./delete.php?deleteIsbn=<?=$record['isbn']?>" style="margin-right: 20px">削除</a>
+    				<a href="./insertIntoCart.php?insertIsbn=<?=$record['isbn']?>">カートに入れる</a>
     			</td>
     		</tr>
     		<?php
