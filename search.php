@@ -15,10 +15,21 @@ if(isset($_POST['listButton']) || isset($_POST['searchButton'])) {   //list.php�
     $selectSql .= "AND title LIKE '%{$title}%' ";
     $selectSql .= "AND price LIKE '%{$price}%' ";
     $selectSql .= "ORDER BY isbn ASC";
+
     //検索用クエリの発行
     $selectResult = executeQuery($selectSql);
-    //検索にヒットしたレコードを取得
-    $record = mysqli_fetch_array($selectResult);
+
+    //検索結果があった場合にのみ実行
+    if($selectResult) {
+        //検索にヒットしたレコードをある限り取得して配列$hitRecordsに格納
+        $hitRecords = array();
+        while($record = mysqli_fetch_array($selectResult)) {
+            $hitRecords[] = $record;
+        }
+    } else {    //検索に失敗したときは独自エラー
+        die('書籍の検索に失敗しました。');
+    }
+
     //検索結果セットの開放
     mysqli_free_result($selectResult);
 } else {    //list.php以外からの遷移の場合に実行
@@ -67,19 +78,27 @@ if(isset($_POST['listButton']) || isset($_POST['searchButton'])) {   //list.php�
     			<th style="width: 25vw; background-color: lightblue;">変更/削除</th>
     		</tr>
     		<?php
-    		if($record) {?>
-    		<tr>
-    			<td><a href="./detail.php?isbn=<?=$record['isbn']?>&title=<?=$record['title']?>&price=<?=$record['price']?>"><?=$record['isbn']?></a></td>
-    			<td><?=$record['title']?></td>
-    			<td><?=$record['price']?>円</td>
-    			<td>
-    				<a href="./update.php?updateIsbn=<?=$record['isbn']?>" style="margin-right: 20px">変更</a>
-    				<a href="./delete.php?deleteIsbn=<?=$record['isbn']?>">削除</a>
-    			</td>
-    		</tr>
+    		//検索結果が１件でもヒットした場合の表示
+    		if(count($hitRecords) != 0) {
+        		foreach($hitRecords as $record) {?>
+        		<tr>
+        			<td><a href="./detail.php?isbn=<?=$record['isbn']?>"><?=$record['isbn']?></a></td>
+        			<td><?=$record['title']?></td>
+        			<td><?=$record['price']?>円</td>
+        			<td>
+        				<a href="./update.php?updateIsbn=<?=$record['isbn']?>" style="margin-right: 20px">変更</a>
+        				<a href="./delete.php?deleteIsbn=<?=$record['isbn']?>">削除</a>
+        			</td>
+        		</tr>
+        		<?php
+        		//foreach文の終わり
+        		}
+    		//if文の終わり
+    		}?>
     	</table>
 		<?php
-		} else {?>
+		//検索の結果何もヒットしなかった場合の表示
+		if(count($hitRecords) == 0) {?>
 		<p>検索に一致する書籍はありませんでした。</p>
 		<?php
 		}?>
