@@ -115,7 +115,9 @@ unset($_SESSION['cartInfo']);
     		<br>
     		<table>
     			<tr>
-    				<th>ISBN</th><th>TITLE</th><th>価格</th>
+    				<th style="width: 25vw; background-color: lightblue;">ISBN</th>
+    				<th style="width: 25vw; background-color: lightblue;">TITLE</th>
+    				<th style="width: 25vw; background-color: lightblue;">価格</th>
     			</tr>
     			<?php
             		foreach($cartInfo as $bookData) {?>
