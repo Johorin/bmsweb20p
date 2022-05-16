@@ -40,18 +40,53 @@ if(!isset($userInfo)) { //セッションに登録されているユーザー情
     }
 }
 
-//一連のDB操作処理をまとめた関数を読み込む
-require_once 'dbprocess.php';
+/* カートの中の書籍情報をorderinfoテーブルに登録しつつ価格の合計を計算 */
+$total = 0; //価格の合計を格納する変数
+$cartInfo = $_SESSION['cartInfo'];  //cartInfoパラメータのセッションの内容を変数に用意
+require_once 'dbprocess.php';   //一連のDB操作処理をまとめた関数を読み込む
 
+//購入情報をDBのorderinfoテーブルに登録
+foreach($cartInfo as $boughtBook) {
+    $user = $userInfo['user'];
+    $isbn = $boughtBook['isbn'];
+    $quantity = 1;
+    $date = date('Y-m-d');
 
+    $insertSql = "insert into orderinfo(user,isbn,quantity,date) values('{$user}','{$isbn}','{$quantity}','{$date}')";
+    executeQuery($insertSql);
 
-//カートの中の書籍の価格を合計
-$total = 0;
-if(isset($_SESSION['cartInfo'])) {
-    foreach($_SESSION['cartInfo'] as $bookData) {
-        $total += $bookData['price'];
-    }
+    //価格を合計
+    $total += $boughtBook['price'];
 }
+
+/* 自動メール送信処理 */
+//送信準備
+mb_language("japanese");
+mb_internal_encoding("UTF-8");
+$to= 'hhoyuak2145@gmail.com'; //ご自分のアドレスを入れてください
+$sbj="ご注文の受付完了";
+
+//本文の設定
+$body = <<<EOF
+{$userInfo['user']}様
+
+本のご購入ありがとうございます。
+以下内容でご注文を受け付けましたので、ご連絡致します。
+\n
+EOF;
+foreach($cartInfo as $bookData) {
+    $body .= "{$bookData['isbn']} {$bookData['title']} {$bookData['price']}円\n";
+}
+$body .= "合計 {$total}円\n\n";
+$body .= 'またのご利用よろしくお願いします。';
+
+$hdr = "Content-Type: text/plain;charset=ISO-2022-JP";
+
+//送信
+mb_send_mail($to, $sbj, $body, $hdr);
+
+/* カートの中身削除 */
+unset($_SESSION['cartInfo']);
 ?>
 <html>
 	<head>
@@ -83,7 +118,7 @@ if(isset($_SESSION['cartInfo'])) {
     				<th>ISBN</th><th>TITLE</th><th>価格</th>
     			</tr>
     			<?php
-            		foreach($_SESSION['cartInfo'] as $bookData) {?>
+            		foreach($cartInfo as $bookData) {?>
             		<tr>
             			<td><?=$bookData['isbn']?></td>
             			<td><?=$bookData['title']?></td>
