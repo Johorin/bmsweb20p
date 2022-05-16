@@ -18,7 +18,7 @@ if(!isset($_SESSION['userInfo'])) {
 //カートの中身があるかチェック
 if(!isset($_SESSION['cartInfo'][0])) {
     //1つも無ければエラー番号17とともにエラーページへ遷移
-    header('Location: ./error.php?errMsg=17');
+    header('Location: ./error.php?errNum=17');
     exit();
 }
 

@@ -25,10 +25,9 @@ require_once 'dbprocess.php';   //一連のDB操作処理をまとめた関数�
 $selectSql = "SELECT user,title,date FROM orderinfo A inner join bookinfo B on A.isbn=B.isbn where user='{$userInfo['user']}' order by date";
 $selectResult = executeQuery($selectSql);
 
-//検索結果の取得に失敗した場合はメニューにでも遷移しておく
+//検索結果の取得に失敗した場合は独自エラー
 if(!$selectResult) {
-    header('Location: ./menu.php');
-    exit;
+    die('購入状況書籍の取得に失敗しました。');
 }
 
 //購入済みの書籍情報レコードを配列$boughtBooksに逐次格納
