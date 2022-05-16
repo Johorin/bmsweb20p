@@ -84,5 +84,10 @@ if(isset($_POST['listButton']) || isset($_POST['searchButton'])) {   //list.phpã
 		<?php
 		}?>
     </main>
+    <footer>
+    	<br><br><br>
+    	<hr style="border: 1px solid blue;">
+    	<p>Copyright (C) 20YY All Rights Reserved.</p>
+    </footer>
     </body>
 </html>

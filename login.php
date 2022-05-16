@@ -75,5 +75,10 @@ if(isset($_POST['loginButton'])) {  //ログインボタンからのアクセス
     		</form>
     	</center>
     </main>
+    <footer>
+    	<br><br><br>
+    	<hr style="border: 1px solid blue;">
+    	<p>Copyright (C) 20YY All Rights Reserved.</p>
+    </footer>
     </body>
 </html>

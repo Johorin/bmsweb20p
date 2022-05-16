@@ -105,5 +105,10 @@ if(!$selectResult) { //書籍情報が取得できなかった場合
         	</form>
         </center>
     </main>
+    <footer>
+    	<br><br><br>
+    	<hr style="border: 1px solid blue;">
+    	<p>Copyright (C) 20YY All Rights Reserved.</p>
+    </footer>
     </body>
 </html>

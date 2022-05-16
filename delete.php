@@ -75,5 +75,10 @@ if(!$selectResult) {    //削除対象のデータが存在しない時の処理
     	<a href="./list.php">書籍一覧へ戻る</a>
 	</center>
 	</main>
+    <footer>
+    	<br><br><br>
+    	<hr style="border: 1px solid blue;">
+    	<p>Copyright (C) 20YY All Rights Reserved.</p>
+    </footer>
     </body>
 </html>

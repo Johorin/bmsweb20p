@@ -17,9 +17,16 @@ unset($_SESSION['userInfo']);
     	<h3 align="center">ログアウト画面</h3>
     	<hr style="border: 1px solid black;">
     </header>
-	<br><br>
-	<h4>ログアウトしました。</h4>
-	<br>
-	<a href="./login.php">【ログイン画面へ戻る】</a>
+    <main>
+    	<br><br>
+    	<h4>ログアウトしました。</h4>
+    	<br>
+    	<a href="./login.php">【ログイン画面へ戻る】</a>
+	</main>
+    <footer>
+    	<br><br><br>
+    	<hr style="border: 1px solid blue;">
+    	<p>Copyright (C) 20YY All Rights Reserved.</p>
+    </footer>
     </body>
 </html>

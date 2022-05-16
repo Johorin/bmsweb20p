@@ -50,5 +50,10 @@ if(!isset($userInfo)) { //セッションに登録されているユーザー情
 			<p><a href="./logout.php">【ログアウト】</a></p>
 		</center>
     </main>
+    <footer>
+    	<br><br><br>
+    	<hr style="border: 1px solid blue;">
+    	<p>Copyright (C) 20YY All Rights Reserved.</p>
+    </footer>
     </body>
 </html>

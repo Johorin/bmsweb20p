@@ -68,14 +68,21 @@ switch($errNum) {
 		<title>Error!</title>
 	</head>
     <body>
-	<center>
+    <header>
 	    <h2 align="center">書籍販売システムWeb版 Ver.2.0</h2>
     	<hr style="border: 2px solid blue;">
+    </header>
+	<center>
     	<br><br>
     	<h2>●●エラー●●</h2>
 		<p><?=$errMsg?></p>
 		<br><br>
 		<a href="./list.php">[一覧表示に戻る]</a>
 	</center>
+    <footer>
+    	<br><br><br>
+    	<hr style="border: 1px solid blue;">
+    	<p>Copyright (C) 20YY All Rights Reserved.</p>
+    </footer>
     </body>
 </html>
